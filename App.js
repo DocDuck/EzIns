@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Button, Text, Button } from 'react-native';
+import { View, StyleSheet, Button, Text } from 'react-native';
 
 export default function App() {
 	const [focusSubject, setFocusSubject] = React.useState('');
