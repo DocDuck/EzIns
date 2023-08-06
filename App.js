@@ -7,7 +7,7 @@ export default function App() {
   return (
 		  <View style={styles.container}>
 				<Text>{focusSubject ?? 'Нажми на кнопку - получишь результат'}</Text>
-				<Button style={styles.button} onPress={handlePress}>Нажми на меня</Button>
+				<Button title="Нажми на меня" style={styles.button} onPress={handlePress}/>
     	</View>
   );
 }
