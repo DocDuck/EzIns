@@ -2,11 +2,11 @@ import React from 'react';
 import { View, StyleSheet, Button, Text } from 'react-native';
 
 export default function App() {
-	const [focusSubject, setFocusSubject] = React.useState('');
+	const [focusSubject, setFocusSubject] = React.useState('Нажми на кнопку - получишь результат');
 	const handlePress = () => {setFocusSubject("Здарова, приложуха считай почти готова)")};
   return (
 		  <View style={styles.container}>
-				<Text>{focusSubject ?? 'Нажми на кнопку - получишь результат'}</Text>
+				<Text>{focusSubject}</Text>
 				<Button title="Нажми на меня" style={styles.button} onPress={handlePress}/>
     	</View>
   );
