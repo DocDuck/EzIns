@@ -1,27 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, Button, Text } from 'react-native';
+import { View, Text } from 'react-native';
+import Button from './src/shared/ui/button';
+import styled from 'styled-components/native';
 
 export default function App() {
 	const [focusSubject, setFocusSubject] = React.useState('Нажми на кнопку - получишь результат');
 	const handlePress = () => {setFocusSubject("Здарова, приложуха считай почти готова)")};
   return (
-		  <View style={styles.container}>
+		  <View>
 				<Text>{focusSubject}</Text>
-				<Button title="Нажми на меня" style={styles.button} onPress={handlePress}/>
+				<Button onPress={handlePress} title='Press me' />
     	</View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-		flexDirection: "column",
-		justifyContent: "space-between",
-    padding: 8,
-  },
-	button: {
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center",
-	}
-});
