@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "focuspokus",
+    "name": "EzIns",
     "slug": "snack-98830bed-36d8-40d1-bdc6-6e5803759a8c",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/favicon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
