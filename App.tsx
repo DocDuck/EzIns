@@ -13,3 +13,11 @@ export default function App() {
     	</View>
   );
 }
+
+const Wrapper = styled(View)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 600px;
+	padding: 24px;
+`;

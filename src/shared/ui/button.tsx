@@ -16,7 +16,7 @@ const ButtonContainer = styled.TouchableOpacity<Omit<IButtonProps, 'title'>>`
   height: 40px;
   padding: 12px;
   border-radius: 10px;
-  background-color: ${props => props.backgroundColor};
+  background-color: ${props => props.backgroundColor ?? 'cyan'};
 `;
 
 const ButtonText = styled.Text`
