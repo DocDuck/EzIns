@@ -7,10 +7,10 @@ export default function App() {
 	const [focusSubject, setFocusSubject] = React.useState('Нажми на кнопку - получишь результат');
 	const handlePress = () => {setFocusSubject("Здарова, приложуха считай почти готова)")};
   return (
-		  <View>
+		  <Wrapper>
 				<Text>{focusSubject}</Text>
 				<Button onPress={handlePress} title='Press me' />
-    	</View>
+    	</Wrapper>
   );
 }
 

@@ -14,7 +14,7 @@ const ButtonContainer = styled.TouchableOpacity<Omit<IButtonProps, 'title'>>`
   margin-vertical: 40px;
   width: 120px;
   height: 40px;
-  padding: 12px;
+  padding: 12px 24px;
   border-radius: 10px;
   background-color: ${props => props.backgroundColor ?? 'cyan'};
 `;
