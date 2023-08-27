@@ -1,22 +1,23 @@
 import React from 'react';
 import { ViewProps } from 'react-native';
+import { Button as _Button } from 'react-native-paper';
 import styled from 'styled-components/native';
 
 interface IButtonProps extends ViewProps {
   // TODO theme?: ThemeInterface;
   backgroundColor?: string;
 	onPress: () => void;
-	title: string;
+	title?: string;
 
 }
 
-const ButtonContainer = styled.TouchableOpacity<Omit<IButtonProps, 'title'>>`
+const ButtonContainer = styled(_Button)<Omit<IButtonProps, 'title'>>`
   margin-vertical: 40px;
   width: 120px;
   height: 40px;
   padding: 12px 24px;
   border-radius: 10px;
-  background-color: ${props => props.backgroundColor ?? 'cyan'};
+  background-color: ${(props: Omit<IButtonProps, 'title'>) => props.backgroundColor ?? 'cyan'};
 `;
 
 const ButtonText = styled.Text`
@@ -24,9 +25,9 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-const Button: React.FC<IButtonProps> = ({ onPress, backgroundColor, title }) => (
+const Button: React.FC<IButtonProps> = ({ onPress, backgroundColor, title = '' }) => (
   <ButtonContainer onPress={onPress} backgroundColor={backgroundColor}>
-    <ButtonText>{title}</ButtonText>
+    {title && <ButtonText>{title}</ButtonText>}
   </ButtonContainer>
 );
 
