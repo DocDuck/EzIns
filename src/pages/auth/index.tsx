@@ -12,7 +12,6 @@ export function AuthScreen() {
   const onComplete = useCallback(() => {
     navigation.navigate(ERouteName.ProcessListScreen)
   }, [navigation])
-	console.log(Asset.byUri)	
   return (
     <View>
       <Text>Компания</Text>
