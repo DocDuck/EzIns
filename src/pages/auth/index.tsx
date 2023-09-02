@@ -1,5 +1,6 @@
- import { useCallback } from 'react'
- import { Image, View } from 'react-native';
+import * as React from 'react'
+import { useCallback } from 'react'
+import { Image, View } from 'react-native';
 // import { LoginForm } from 'features/authentication/login'
 import { useNavigation } from '@react-navigation/native'
 import { Text } from 'react-native-paper';
