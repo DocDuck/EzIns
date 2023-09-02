@@ -1,7 +1,7 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ["babel-preset-expo", "@babel/preset-typescript"],
+    presets: ["babel-preset-expo"],
     plugins: [
       [
         "module-resolver",
@@ -16,14 +16,14 @@ module.exports = function (api) {
             '.ios.js',
             '.ios.tsx'
           ],
-          root: ["./src"],
+					root: ["./"],
           alias: {
-            app: "./src/app",
-            pages: "./src/pages",
-            widgets: "./src/widgets",
-            features: "./src/features",
-            entities: "./src/entities",
-            shared: "./src/shared",
+            "app": "./src/app",
+            "pages": "./src/pages",
+            "widgets": "./src/widgets",
+            "features": "./src/features",
+            "entities": "./src/entities",
+            "shared": "./src/shared",
           },
         },
       ]
