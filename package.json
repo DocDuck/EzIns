@@ -26,10 +26,12 @@
     "react-native-pagination": "^1.5.5",
     "react-native-paper": "^5.10.3",
     "react-native-safe-area-context": "4.6.3",
+		"react-native-screens": "^3.25.0",
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "^0.19.8",
     "react-query": "^3.39.3",
     "react-redux": "^8.1.2",
+    "redux": "^4.2.1",
     "styled-components": "6.0.7",
     "use-immer": "^0.9.0"
   },
@@ -41,6 +43,7 @@
     "@tsconfig/react-native": "^3.0.2",
     "@types/jest": "^29.5.4",
     "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
@@ -53,10 +56,5 @@
   "private": true,
   "resolutions": {
     "**/nanoid": "3.3.5"
-  },
-  "peerDependencies": {
-    "@types/react-dom": "^18.2.7",
-    "react-native-screens": "^3.25.0",
-    "redux": "^4.2.1"
   }
 }
