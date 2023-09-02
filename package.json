@@ -50,13 +50,12 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   },
-  "private": true,
   "resolutions": {
     "**/nanoid": "3.3.5"
   },
   "peerDependencies": {
-    "@types/react-dom": "^18.2.7",
-    "react-native-screens": "^3.25.0",
+    "@types/react-dom": "~18.0.10",
+    "react-native-screens": "~3.22.0",
     "redux": "^4.2.1"
   }
 }
