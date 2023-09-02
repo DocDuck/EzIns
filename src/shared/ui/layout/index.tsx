@@ -1,6 +1,6 @@
 import { type ReactNode, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { ERouteName, NavProp } from 'shared/routes';
+import { ERouteName, NavProp } from '../../../shared/routes';
 import { View, Text } from 'react-native';
 import Button from '../button';
 
