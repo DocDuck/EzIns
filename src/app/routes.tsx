@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AuthScreen } from "pages/auth";
-import { ProcessListScreen } from "pages/process/list";
+import { AuthScreen } from "../pages/auth";
+import { ProcessListScreen } from "../pages/process/list";
 /* import { ProcessStartScreen } from "pages/process/start";
 import { ProcessAcquisitionScreen } from "pages/process/acquisition";
 import { ProcessStepScreen } from "pages/process/step";
 import { ProcessConclusionScreen } from "pages/process/conclusion";
 import { ReportScreen } from "pages/report-list"; */
-import { ERouteName, NavStackParamList } from "shared";
+import { ERouteName, NavStackParamList } from "../shared";
 
 const NavStack = createNativeStackNavigator<NavStackParamList>();
 
