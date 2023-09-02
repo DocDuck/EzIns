@@ -3,15 +3,21 @@
 	"compilerOptions": {
 		"strict": true,
     "baseUrl": ".",
+		"allowJs": true,
+    "esModuleInterop": true,
+    "jsx": "react-native",
+		"moduleResolution": "node",
+		"noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
     "paths": {
-			"*": ["src/*"],
-      // "app/*": ["src/app/*"],
-      // "processes/*": ["src/processes/*"],
-      // "pages/*": ["src/pages/*"],
-      // "widgets/*": ["src/widgets/*"],
-      // "features/*": ["src/features/*"],
-      // "entities/*": ["src/entities/*"],
-      // "shared/*": ["src/shared/*"],
+      "app/*": ["src/app/*"],
+      "pages/*": ["src/pages/*"],
+      "widgets/*": ["src/widgets/*"],
+      "features/*": ["src/features/*"],
+      "entities/*": ["src/entities/*"],
+      "shared/*": ["src/shared/*"],
     },
     "plugins": [
       {
@@ -33,5 +39,6 @@
         }
       }
     ]
-  }
+  },
+	"exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }
