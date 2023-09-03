@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { Text } from 'react-native-paper';
 import Button from 'shared/ui/button'
-import { ERouteName, NavProp } from 'shared/routes'
+import { ERouteName, NavProp } from 'shared/types'
 
 export function ProcessListScreen() {
 	const navigation = useNavigation<NavProp<ERouteName>>();
