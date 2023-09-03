@@ -4,9 +4,9 @@ import { Image, View } from 'react-native';
 // import { LoginForm } from 'features/authentication/login'
 import { useNavigation } from '@react-navigation/native'
 import { Text } from 'react-native-paper';
-import { ERouteName, NavProp } from '../../../src/shared/routes'
+import Button from 'shared/ui/button'
+import { ERouteName, NavProp } from 'shared/routes'
 import { Asset } from 'expo-asset';
-import Button from '../../../src/shared/ui/button';
 
 export function AuthScreen() {
 	const navigation = useNavigation<NavProp<ERouteName>>();
