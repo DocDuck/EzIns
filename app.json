@@ -15,23 +15,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.aleksandrmitin.snack98830bed36d840d1bdc66e5803759a8c"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.aleksandrmitin.snack98830bed36d840d1bdc66e5803759a8c"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "d1f277e5-714b-4f61-824b-cfa51ba0da00"
-      }
+		"experiments": {
+      "tsconfigPaths": true
     }
   }
 }
