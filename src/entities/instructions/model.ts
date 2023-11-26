@@ -4,7 +4,7 @@ import {
   Dispatch,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { DocumentPickerResult } from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
 import { useIsFetching, useQuery } from "react-query";
 import type { Instruction } from "shared";
 import { API, useAppSelector } from "shared";
@@ -18,13 +18,13 @@ const KEY = "instructions";
 
 // react-query actions (everything that async)
 const getInstructionsTable =  () => async (dispatch: Dispatch) =>
-  // useQuery<DocumentPickerResult>(KEY, () => API.instructions.getTable(), {
+  // useQuery<FileSystem.FileSystemDownloadResult | undefined>(KEY, () => API.instructions.getTable(), {
   //   onSuccess: (data) =>
 	// 	console.log('react-query thunk', data),
   //     // dispatch(instructionsModel.actions.setInstructionsList(data.slice(0, 25))),
   //   refetchOnWindowFocus: false,
   // });
-	await API.instructions.getTable()
+  API.instructions.getTable()
 
 // export const getInstructionByIdAsync = (id: number) => (dispatch: Dispatch) =>
 //   useQuery<Instruction>("instructions", () => API.instructions.getInstructionById(id), {

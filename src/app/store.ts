@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import { instructionModel } from "entities/instruction";
+import { instructionsModel } from "entities/instructions";
 // import { executorModel } from "entities/executor";
 
 export const store = configureStore({
   reducer: {
     // executor: executorModel.reducer,
-    // instruction: instructionModel.reducer,
+    instruction: instructionsModel.reducer,
   },
 });

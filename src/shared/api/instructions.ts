@@ -1,13 +1,8 @@
-import { INSTRUCTION_FOLDER } from "shared/config";
 import * as FileSystem from 'expo-file-system';
 // import * as Permissions from 'expo-permissions';
 // import * as MediaLibrary from 'expo-media-library';
 // import * as Sharing from 'expo-sharing';
-import { Logs } from 'expo'
 
-Logs.enableExpoCliLogging()
-
-const BASE_URL = "./assets/files";
 const TEMPLATE = "template.xlsx";
 
 export type Instruction = {
@@ -18,13 +13,11 @@ export type Instruction = {
 };
 
 const getTable = async (): Promise<FileSystem.FileSystemDownloadResult | undefined> => {
-	console.log('FileSystem.documentDirectory', FileSystem.documentDirectory);
         // Downloading the file
-		let res: FileSystem.FileSystemDownloadResult;		
-    let fileLocation = FileSystem.documentDirectory + BASE_URL + TEMPLATE;
+		let res: FileSystem.FileSystemDownloadResult;
     try {
-			res = await FileSystem.downloadAsync(BASE_URL, fileLocation)
-			console.log('res', res);
+      const file = FileSystem.downloadAsync(require('assets/files/template.xlsx'), FileSystem.documentDirectory + TEMPLATE);
+			console.log('res', file);
         // Saving the file in a folder name `MyImages`
         // const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
         // if (status === "granted") {
@@ -34,7 +27,7 @@ const getTable = async (): Promise<FileSystem.FileSystemDownloadResult | undefin
 
         // // Sharing the downloded file
         // Sharing.shareAsync(fileLocation);
-				return res;
+				return file;
     }
 		catch ( error) {
         console.error(error);
