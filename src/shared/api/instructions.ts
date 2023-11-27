@@ -1,4 +1,6 @@
+import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from 'expo-file-system';
+import XLSX from 'xlsx';
 // import * as Permissions from 'expo-permissions';
 // import * as MediaLibrary from 'expo-media-library';
 // import * as Sharing from 'expo-sharing';
@@ -12,25 +14,33 @@ export type Instruction = {
   completed: boolean;
 };
 
-const getTable = async (): Promise<FileSystem.FileSystemDownloadResult | undefined> => {
+const getTable = async (): Promise<XLSX.WorkBook | undefined> => {
         // Downloading the file
 		let res: FileSystem.FileSystemDownloadResult;
     try {
-      const file = FileSystem.downloadAsync(require('assets/files/template.xlsx'), FileSystem.documentDirectory + TEMPLATE);
-			console.log('res', file);
-        // Saving the file in a folder name `MyImages`
-        // const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-        // if (status === "granted") {
-        //     const asset = await MediaLibrary.createAssetAsync(BASE_URL)
-        //     await MediaLibrary.createAlbumAsync("MyImages", asset, false)
-        // }
-
-        // // Sharing the downloded file
-        // Sharing.shareAsync(fileLocation);
-				return file;
-    }
-		catch ( error) {
-        console.error(error);
+  
+      let result = await DocumentPicker.getDocumentAsync({copyToCacheDirectory: false, type: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']});
+      if (result.canceled) return;
+      let content = (result as any).uri.split(',')[1];
+      let workbook = null;
+      console.log(content)
+      if (content){
+        workbook = XLSX.read(content, {type: 'base64'});
+      } else {
+        const uri = FileSystem.documentDirectory+(result as any).name;
+        await FileSystem.copyAsync({
+          from: (result as any).uri,
+          to: uri
+        })
+        const b64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+        workbook = XLSX.read(b64, {type: "base64"});
+      }
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      //setItemsInventario({data: json, count: json.length, name: result.name});
+       
+    } catch (error) {
+      console.error(error)
     }
 };
 
