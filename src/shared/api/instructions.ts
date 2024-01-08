@@ -15,21 +15,19 @@ export type Instruction = {
 };
 
 const getTable = async (): Promise<XLSX.WorkBook | undefined> => {
-        // Downloading the file
-		let res: FileSystem.FileSystemDownloadResult;
-    try {
-  
-      let result = await DocumentPicker.getDocumentAsync({copyToCacheDirectory: false, type: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']});
-      if (result.canceled) return;
-      let content = (result as any).uri.split(',')[1];
+    // Downloading the file
+    try {  
+      let data = await DocumentPicker.getDocumentAsync({copyToCacheDirectory: false, type: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']});
+      if (data.canceled) return;
+      const result = data.assets[0]
+      let content = result.uri//.split(',')[1];
       let workbook = null;
-      console.log(content)
       if (content){
         workbook = XLSX.read(content, {type: 'base64'});
       } else {
-        const uri = FileSystem.documentDirectory+(result as any).name;
+        const uri = FileSystem.documentDirectory+result.name;
         await FileSystem.copyAsync({
-          from: (result as any).uri,
+          from: result.uri,
           to: uri
         })
         const b64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
@@ -37,7 +35,8 @@ const getTable = async (): Promise<XLSX.WorkBook | undefined> => {
       }
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      //setItemsInventario({data: json, count: json.length, name: result.name});
+      console.log(JSON.stringify(workbook))
+      // setItemsInventario({data: json, count: json.length, name: result.name});
        
     } catch (error) {
       console.error(error)
