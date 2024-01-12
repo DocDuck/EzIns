@@ -4,7 +4,8 @@ import {
   Dispatch,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import * as FileSystem from 'expo-file-system';
+import { DocumentPickerAsset } from "expo-document-picker";
+import XLSX from 'xlsx';
 import { useIsFetching, useQuery } from "react-query";
 import type { Instruction } from "shared";
 import { API, useAppSelector } from "shared";
@@ -18,13 +19,28 @@ const KEY = "instructions";
 
 // react-query actions (everything that async)
 const getInstructionsTable =  () => async (dispatch: Dispatch) =>
-  // useQuery<FileSystem.FileSystemDownloadResult | undefined>(KEY, () => API.instructions.getTable(), {
-  //   onSuccess: (data) =>
-	// 	console.log('react-query thunk', data),
-  //     // dispatch(instructionsModel.actions.setInstructionsList(data.slice(0, 25))),
+  // TODO Пока что юзКвери не дружит с дата пикером - ошибка большого размера данных. Починить кеширование
+  // useQuery(KEY, () => API.instructions.loadExcelFile(), {
+  //   onSuccess: (binaryString) => {
+  //     if (!binaryString) return
+  //     const workbook = XLSX.read(binaryString, { type: 'binary' });
+  //     const sheetName = workbook.SheetNames[0];
+  //     const worksheet = workbook.Sheets[sheetName];
+  //     const dataRow = XLSX.utils.sheet_to_json(worksheet);
+  //     console.log('react-query thunk', dataRow)
+  //   },
   //   refetchOnWindowFocus: false,
   // });
-  API.instructions.getTable()
+  {
+    const binaryString = await API.instructions.loadExcelFile();
+    if (typeof binaryString === 'undefined') return;
+    const workbook = XLSX.read(binaryString, { type: 'binary' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const dataRow = XLSX.utils.sheet_to_json<Instruction>(worksheet);
+    dispatch(instructionsModel.actions.setInstructionsList(dataRow.slice(0, 25)))
+  }
+
 
 // export const getInstructionByIdAsync = (id: number) => (dispatch: Dispatch) =>
 //   useQuery<Instruction>("instructions", () => API.instructions.getInstructionById(id), {
@@ -74,6 +90,7 @@ const instructionsSlice = createSlice({
     setInstructionsList: (state, { payload }: PayloadAction<Instruction[]>) => {
       state.entries = payload.reduce((record, instructions: Instruction) => {
         record[instructions.id] = instructions;
+        console.log(record)
         return record;
       }, {} as Record<number, Instruction>);
     },
