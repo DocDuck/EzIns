@@ -37,8 +37,8 @@ const getInstructionsTable =  () => async (dispatch: Dispatch) =>
     const workbook = XLSX.read(binaryString, { type: 'binary' });
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
-    const dataRow = XLSX.utils.sheet_to_json<Instruction>(worksheet);
-    dispatch(instructionsModel.actions.setInstructionsList(dataRow.slice(0, 25)))
+    const data = XLSX.utils.sheet_to_json<Instruction>(worksheet, { header: 1 });
+    dispatch(instructionsModel.actions.setInstructionsList(data.slice(0, 25)))
   }
 
 

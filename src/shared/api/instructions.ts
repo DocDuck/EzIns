@@ -5,13 +5,6 @@ import { Buffer } from 'buffer';
 // import * as MediaLibrary from 'expo-media-library';
 // import * as Sharing from 'expo-sharing';
 
-export type Instruction = {
-  id: number;
-  title: string;
-  userId: number;
-  completed: boolean;
-};
-
 const loadExcelFile = async (): Promise<string | undefined> => {
     // Downloading the file
     try {  
