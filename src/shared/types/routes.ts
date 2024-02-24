@@ -4,8 +4,9 @@ import type {
 } from "@react-navigation/native-stack";
 
 export enum ERouteName {
+	'LoadScreen' = 'LoadScreen',
 	'AuthScreen' = 'AuthScreen',
-	'ProcessListScreen' = 'ProcessConclusionScreen',
+	'ProcessListScreen' = 'ProcessListScreen',
 	'ProcessStartScreen' = 'ProcessStartScreen',
 	'ProcessAcquisitionScreen' = 'ProcessAcquisitionScreen',
 	'ProcessStepScreen' = 'ProcessConclusionScreen',
@@ -14,6 +15,7 @@ export enum ERouteName {
 }
 
 export type NavStackParamList = {
+  [ERouteName.LoadScreen]: undefined;
   [ERouteName.AuthScreen]: undefined;
   [ERouteName.ProcessListScreen]: undefined;
   [ERouteName.ProcessStartScreen]: undefined;

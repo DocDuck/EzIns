@@ -1,21 +1,29 @@
 import * as React from 'react'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AuthScreen } from "../pages/auth";
-import { ProcessListScreen } from "../pages/process/list";
+import { ERouteName, NavStackParamList } from "shared";
+import { AuthScreen } from "pages/auth";
+import { LoadScreen } from 'pages/load';
+import { ProcessListScreen } from "pages/process/list";
 /* import { ProcessStartScreen } from "pages/process/start";
 import { ProcessAcquisitionScreen } from "pages/process/acquisition";
 import { ProcessStepScreen } from "pages/process/step";
 import { ProcessConclusionScreen } from "pages/process/conclusion";
 import { ReportScreen } from "pages/report-list"; */
-import { ERouteName, NavStackParamList } from "../shared";
 
 const NavStack = createNativeStackNavigator<NavStackParamList>();
 
 export const Routing = () => {
   return (
     <NavigationContainer>
-      <NavStack.Navigator initialRouteName={ERouteName.AuthScreen}>
+      <NavStack.Navigator initialRouteName={ERouteName.LoadScreen}>
+      <NavStack.Screen
+          name={ERouteName.LoadScreen}
+          component={LoadScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <NavStack.Screen
           name={ERouteName.AuthScreen}
           component={AuthScreen}

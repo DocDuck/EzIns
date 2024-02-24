@@ -4,13 +4,13 @@ import {
   Dispatch,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { DocumentPickerAsset } from "expo-document-picker";
 import XLSX from 'xlsx';
-import { useIsFetching, useQuery } from "react-query";
-import type { Instruction } from "shared";
+// import { useIsFetching, useQuery } from "react-query";
 import { API, useAppSelector } from "shared";
+import { Instruction } from "shared/types/instruction";
 
 const initialState: InstructionState = {
+  isLoaded: false,
   entries: {},
   queryConfig: {},
 };
@@ -18,7 +18,7 @@ const initialState: InstructionState = {
 const KEY = "instructions";
 
 // react-query actions (everything that async)
-const getInstructionsTable =  () => async (dispatch: Dispatch) =>
+const getInstructionsTableThunk =  () => async (dispatch: Dispatch) =>
   // TODO Пока что юзКвери не дружит с дата пикером - ошибка большого размера данных. Починить кеширование
   // useQuery(KEY, () => API.instructions.loadExcelFile(), {
   //   onSuccess: (binaryString) => {
@@ -38,7 +38,8 @@ const getInstructionsTable =  () => async (dispatch: Dispatch) =>
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
     const data = XLSX.utils.sheet_to_json<Instruction>(worksheet, { header: 1 });
-    dispatch(instructionsModel.actions.setInstructionsList(data.slice(0, 25)))
+    dispatch(instructionsModel.actions.setInstructionsList(data.slice(0, 25)));
+    dispatch(instructionsModel.actions.setIsLoaded(true));
   }
 
 
@@ -55,23 +56,9 @@ const getInstructionsTable =  () => async (dispatch: Dispatch) =>
 //     staleTime: 5 * 60 * 1000, // 5minutes
 //   });
 
-// // selectors
-// const getFilteredInstructions = () =>
-//    (
-//     createSelector(
-//       (state: AppState) => state.instructionss.queryConfig,
-//       (state: AppState) => state.instructionss.entries,
-//       (
-//         queryConfig: AppState[typeof KEY]["queryConfig"],
-//         instructionss: AppState[typeof KEY]["entries"]
-//       ) =>
-//         Object.values(instructionss).filter(
-//           (instructions) =>
-//             queryConfig?.completed === undefined ||
-//             instructions?.completed === queryConfig.completed
-//         )
-//     )
-//   );
+// selectors
+const getInstructions = () => (state: AppState) => state.instruction.entries;
+const getIsLoaded = () => (state: AppState): boolean => state.instruction.isLoaded;
 
 // const useInstruction = (instructionsId: number) =>
 //   useAppSelector(
@@ -81,12 +68,14 @@ const getInstructionsTable =  () => async (dispatch: Dispatch) =>
 //     )
 //   );
 
-const areInstructionsLoading = (): boolean => useIsFetching(KEY) > 0;
 
 const instructionsSlice = createSlice({
   name: KEY,
   initialState,
   reducers: {
+    setIsLoaded: (state, { payload }: PayloadAction<boolean>) => {
+      state.isLoaded = payload
+    },
     setInstructionsList: (state, { payload }: PayloadAction<Instruction[]>) => {
       state.entries = payload.reduce((record, instructions: Instruction) => {
         record[instructions.id] = instructions;
@@ -97,9 +86,9 @@ const instructionsSlice = createSlice({
     addInstructionToList: (state, { payload: instructions }: PayloadAction<Instruction>) => {
       state.entries[instructions.id] = instructions;
     },
-    toggleInstruction: ({ entries }, { payload: instructionsId }: PayloadAction<number>) => {
-      entries[instructionsId].completed = !entries[instructionsId].completed;
-    },
+    // toggleInstruction: ({ entries }, { payload: instructionsId }: PayloadAction<number>) => {
+    //   entries[instructionsId].completed = !entries[instructionsId].completed;
+    // },
     setQueryConfig: (state, { payload }: PayloadAction<QueryConfig>) => {
       state.queryConfig = payload;
     },
@@ -109,13 +98,15 @@ const instructionsSlice = createSlice({
 export const instructionsModel = {
   ...instructionsSlice,
   selectors: {
-    areInstructionsLoading,
+    getIsLoaded,
+    getInstructions
   },
-  getInstructionsTable,
+  getInstructionsTableThunk,
 };
 
 // TYPES
 type InstructionState = {
+  isLoaded: boolean,
   entries: Record<number, Instruction>;
   queryConfig: QueryConfig;
 };

@@ -7,7 +7,7 @@ import { Buffer } from 'buffer';
 
 const loadExcelFile = async (): Promise<string | undefined> => {
     // Downloading the file
-    try {  
+    try {
       let data = await DocumentPicker.getDocumentAsync({
         copyToCacheDirectory: false,
         type: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
